@@ -1,0 +1,66 @@
+version: 2
+
+sources:
+  - name: raw
+    description: dato RAW sin procesar
+    schema: "{{ target.schema }}"
+    tags: ["layer:raw"]
+    tables:
+      - name: articles
+        identifier: raw_articles
+        description: dato RAW del catálogo de artículos y productos vendibles
+        external:
+          location: 's3://pulpocon-2022/raw'
+          pattern: 'articles.csv.gz'
+          file_format: (type = csv skip_header = 1 FIELD_OPTIONALLY_ENCLOSED_BY = '"')
+        columns:
+          - name: article_id
+            data_type: varchar
+          - name: product_code
+            data_type: varchar
+          - name: prod_name
+            data_type: varchar
+          - name: product_type_no
+            data_type: varchar
+          - name: product_type_name
+            data_type: varchar
+          - name: product_group_name
+            data_type: varchar
+          - name: graphical_appearance_no
+            data_type: varchar
+          - name: graphical_appearance_name
+            data_type: varchar
+          - name: colour_group_code
+            data_type: varchar
+          - name: colour_group_name
+            data_type: varchar
+          - name: perceived_colour_value_id
+            data_type: varchar
+          - name: perceived_colour_value_name
+            data_type: varchar
+          - name: perceived_colour_master_id
+            data_type: varchar
+          - name: perceived_colour_master_name
+            data_type: varchar
+          - name: department_no
+            data_type: varchar
+          - name: department_name
+            data_type: varchar
+          - name: index_code
+            data_type: varchar
+          - name: index_name
+            data_type: varchar
+          - name: index_group_no
+            data_type: varchar
+          - name: index_group_name
+            data_type: varchar
+          - name: section_no
+            data_type: varchar
+          - name: section_name
+            data_type: varchar
+          - name: garment_group_no
+            data_type: varchar
+          - name: garment_group_name
+            data_type: varchar
+          - name: detail_desc
+            data_type: varchar

@@ -1,0 +1,7 @@
+version: 2
+
+macros:
+  - name: set_query_tag
+    description: |
+      Used in Snowflake connections to set a query_tag using 
+      the model name to achieve better traceability

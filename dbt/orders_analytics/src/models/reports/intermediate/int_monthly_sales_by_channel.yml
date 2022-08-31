@@ -1,0 +1,8 @@
+version: 2
+
+models:
+- name: int_monthly_sales_by_channel
+  description: "CTE: ventas mensuales por producto y canal de venta"
+  config: 
+      tags: ["layer:report"]
+      materialized: ephemeral

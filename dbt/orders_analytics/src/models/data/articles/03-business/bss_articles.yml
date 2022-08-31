@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: bss_articles
+    description: catálogo final de artículos
+    config: 
+      tags: ["layer:business", "visibility:public"]
+      materialized: table
+    columns:
+    - name: article_reference
+      tests:
+        - not_null
+        - unique
+
+    - name: product_reference
+      tests:
+        - not_null
+        - relationships:
+            to: ref('bss_products')
+            field: product_reference

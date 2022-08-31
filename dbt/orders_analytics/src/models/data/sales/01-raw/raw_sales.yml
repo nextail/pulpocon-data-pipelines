@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: raw
+    description: dato RAW sin procesar
+    schema: "{{ target.schema }}"
+    tags: ["layer:raw"]
+    tables:
+      - name: sales
+        identifier: raw_sales
+        description: dato RAW de ventas históricas para todos los productos y clientesRaw sales data
+        external:
+          location: 's3://pulpocon-2022/raw/sales'
+          pattern: 'sales'
+          file_format: (type = csv skip_header = 1 FIELD_OPTIONALLY_ENCLOSED_BY = '"')
+        columns:
+          - name: t_dat
+            data_type: varchar
+          - name: customer_id
+            data_type: varchar
+          - name: article_id
+            data_type: varchar
+          - name: price
+            data_type: varchar
+          - name: sales_channel_id
+            data_type: varchar

@@ -1,0 +1,28 @@
+config-version: 2
+
+name: 'orders_analytics_test'
+version: '1.0.0'
+
+profile: 'orders_analytics_test'
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+  - "logs"
+
+# Disable parent project tests and seeds
+tests:
+  orders_analytics:
+    +enabled: false
+seeds:
+  orders_analytics:
+    +enabled: false
+  
+# Setup the local test environment before test execution
+on-run-start:
+  - "{{ setup() }}"
+
+# Teardown the local test environment after test execution
+on-run-end:
+  - "{{ teardown() }}"
+  

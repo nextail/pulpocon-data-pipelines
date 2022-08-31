@@ -1,0 +1,8 @@
+version: 2
+
+models:
+- name: best_selling_articles_by_sales_channel
+  description: "INFORME: artículos más vendidos por canal de venta"
+  config:
+      tags: ["layer:report", "visibility:public"]
+      materialized: table

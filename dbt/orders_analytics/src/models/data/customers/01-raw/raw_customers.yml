@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: raw
+    description: dato RAW sin procesar
+    schema: "{{ target.schema }}"
+    tags: ["layer:raw"]
+    tables:
+      - name: customers
+        identifier: raw_customers
+        description: dato RAW de clientes
+        external:
+          location: 's3://pulpocon-2022/raw'
+          pattern: 'customers.csv.gz'
+          file_format: (type = csv skip_header = 1 FIELD_OPTIONALLY_ENCLOSED_BY = '"')
+        columns:
+          - name: customer_id
+            data_type: varchar
+          - name: FN
+            data_type: varchar
+          - name: Active
+            data_type: varchar
+          - name: club_member_status
+            data_type: varchar
+          - name: fashion_news_frequency
+            data_type: varchar
+          - name: age
+            data_type: varchar
+          - name: postal_code
+            data_type: varchar

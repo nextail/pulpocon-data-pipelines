@@ -1,0 +1,5 @@
+packages:
+  - package: dbt-labs/dbt_utils       # basic set of platform independent utils
+    version: 0.8.6
+  - package: calogica/dbt_expectations      # basic set of great expectations
+    version: 0.5.8

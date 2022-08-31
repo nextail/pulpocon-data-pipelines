@@ -1,0 +1,20 @@
+version: 2
+
+models:
+- name: bss_sales_channels
+  description: maestro final de canales de ventas
+  config: 
+      tags: ["layer:business", "visibility:public"]
+      materialized: table
+  columns:
+    - name: sales_channel_id
+      tests:
+        - unique
+        - not_null
+        - accepted_values:
+            values: [1, 2]
+            quote: false
+            
+    - name: sales_channel_name
+      tests:
+        - not_null

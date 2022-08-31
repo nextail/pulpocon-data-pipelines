@@ -1,0 +1,17 @@
+config-version: 2
+
+name: orders_analytics
+version: 1.0.0
+
+profile: orders_analytics
+
+clean-targets:
+  - target
+  - dbt_packages
+  - logs
+
+seeds:
+  +enabled: false
+
+vars:
+  low_sales.reference_date: '2020-03-01'

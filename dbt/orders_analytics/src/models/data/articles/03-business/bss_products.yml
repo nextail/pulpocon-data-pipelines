@@ -1,0 +1,13 @@
+version: 2
+
+models:
+- name: bss_products
+  description: catálogo final de productos
+  config: 
+      tags: ["layer:business", "visibility:public"]
+      materialized: table
+  columns:
+    - name: product_reference
+      tests:
+        - unique
+        - not_null

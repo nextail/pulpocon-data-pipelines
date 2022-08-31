@@ -1,0 +1,20 @@
+version: 2
+
+macros:
+  - name: strip
+    description: "Generates a SQL expression to remove newline, carriage return and tab characters"
+    arguments:
+      - name: string
+        type: string
+        description: "string that removal expression should be taken place"
+      - name: pattern
+        type: regex
+        description: "(default: '[\\n\\r\\t]+') regular expression for matching substrings that should be removed"
+      
+  - name: default__strip
+    docs:
+      show: false
+  
+  - name: postgres__strip
+    docs:
+      show: false

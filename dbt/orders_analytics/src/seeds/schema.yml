@@ -1,0 +1,68 @@
+version: 2
+
+seeds:
+  - name: seed_articles
+    description: catálogo de artículos y productos vendibles
+    config:
+      alias: raw_articles
+      quote_columns: false
+      column_types:
+        article_id: varchar
+        product_code: varchar
+        prod_name: varchar
+        product_type_no: varchar
+        product_type_name: varchar
+        product_group_name: varchar
+        graphical_appearance_no: varchar
+        graphical_appearance_name: varchar
+        colour_group_code: varchar
+        colour_group_name: varchar
+        perceived_colour_value_id: varchar
+        perceived_colour_value_name: varchar
+        perceived_colour_master_id: varchar
+        perceived_colour_master_name: varchar
+        department_no: varchar
+        department_name: varchar
+        index_code: varchar
+        index_name: varchar
+        index_group_no: varchar
+        index_group_name: varchar
+        section_no: varchar
+        section_name: varchar
+        garment_group_no: varchar
+        garment_group_name: varchar
+        detail_desc: varchar
+
+  - name: seed_customers
+    description: datos de clientes
+    config:
+      alias: raw_customers
+      quote_columns: false
+      column_types:
+        customer_id: varchar
+        Active: varchar
+        club_member_status: varchar
+        fashion_news_frequency: varchar
+        age: varchar
+        postal_code: varchar
+      
+  - name: seed_sales_channels
+    description: dato maestro de canales de ventas
+    config:
+      alias: raw_sales_channels
+      quote_columns: false
+      column_types:
+        sales_channel_id: varchar
+        description: varchar
+
+  - name: seed_sales
+    description: dato base de ventas históricas para todos los productos y clientes
+    config:
+      alias: raw_sales
+      quote_columns: false
+      column_types:
+        t_dat: varchar
+        customer_id: varchar
+        article_id: varchar
+        price: varchar
+        sales_channel_id: varchar

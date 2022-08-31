@@ -1,0 +1,8 @@
+version: 2
+
+models:
+- name: articles_with_low_sales_pct_over_product_sales
+  description: "INFORME: artículos con menor porcentaje de ventas por producto"
+  config: 
+      tags: ["layer:report", "visibility:public"]
+      materialized: table

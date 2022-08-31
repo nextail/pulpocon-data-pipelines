@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: raw
+    description: dato RAW sin procesar
+    schema: "{{ target.schema }}"
+    tags: ["layer:raw"]
+    tables:
+      - name: sales_channels
+        identifier: raw_sales_channels
+        description: dato RAW del maestro de canales de ventas
+        external:
+          location: 's3://pulpocon-2022/raw'
+          pattern: 'sales_channels.csv'
+          file_format: (type = csv skip_header = 1 FIELD_OPTIONALLY_ENCLOSED_BY = '"')
+        columns:
+          - name: sales_channel_id
+            data_type: varchar
+          - name: description
+            data_type: varchar

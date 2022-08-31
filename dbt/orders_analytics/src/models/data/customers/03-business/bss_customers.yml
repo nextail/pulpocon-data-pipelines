@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: bss_customers
+    description: datos finales de clientes
+    config: 
+      tags: ["layer:business", "visibility:public"]
+      materialized: table
+    columns:
+    - name: customer_reference
+      tests:
+        - not_null
+        - unique
+    
+    - name: age
+      tests:
+        - not_null:
+            config:
+              severity: warn
+
+    - name: active
+      tests:
+        - accepted_values:
+            values: [true, false]

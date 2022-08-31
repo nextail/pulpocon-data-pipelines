@@ -1,0 +1,5 @@
+version: 2
+
+macros:
+  - name: load_raw_data
+    description: Load external data from S3 into the database raw tables

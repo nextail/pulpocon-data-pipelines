@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: dato de clientes limpio y con conversión de tipos de datos aplicada
+    config: 
+      tags: ["layer:stage"]
+      materialized: view
+    

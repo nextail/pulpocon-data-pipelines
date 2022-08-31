@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: stg_sales_channels
+    description: maestro de canales de venta limpio y con conversión de tipos de datos aplicada
+    config: 
+      tags: ["layer:stage"]
+      materialized: view
+    

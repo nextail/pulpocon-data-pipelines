@@ -1,0 +1,16 @@
+version: 2
+
+macros:
+  - name: sql_from_csv
+    description: "Parses the content of a CSV and represent it as a SQL select statement"
+    arguments:
+      - name: csv_contents
+        type: string
+        description: "The CSV content"
+      - name: delimiter
+        type: string
+        description: "(default ';') The delimiter used to parse the CSV"
+        
+  - name: log_debug
+    docs:
+      show: false

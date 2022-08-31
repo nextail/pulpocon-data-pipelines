@@ -1,0 +1,60 @@
+version: 2
+
+macros:
+  - name: mock_variable
+    description: "Mocks a variable value during testing"
+    arguments:
+      - name: var
+        type: string
+        description: "The variable to mock"
+      - name: value
+        type: any
+        description: "The mocked value to set"
+
+  - name: mock_model
+    description: "Creates a mocked BD model from an existing DBT model appliying some replacements, or using a custom SQL expression"
+    arguments:
+      - name: model_name
+        type: string
+        description: "The existing model to use as base to build the mocked model"
+      - name: replacements
+        type: map
+        description: "A dictionary with the replacements to apply in the mocked model SQL definition"
+      - name: custom_sql
+        type: string
+        description: "A SQL expression used to generate the mocked model replacing the SQL definition of the base model, if one selected"
+      - name: debug
+        type: boolean
+        description: "If true, prints on the console the 50 first rows of the mocked model just created. False by default."
+
+  - name: _render_model_sql
+    docs:
+      show: false
+
+  - name: _put_mocked_model_in_context
+    docs:
+      show: false
+
+  - name: _replace_mocked_models_from_context
+    docs:
+      show: false
+
+  - name: _put_mocked_var_in_context
+    docs:
+      show: false
+
+  - name: _replace_mocked_vars_from_context
+    docs:
+      show: false
+
+  - name: _replace_mocked_ref
+    docs:
+      show: false
+
+  - name: _replace_mocked_src
+    docs:
+      show: false
+
+  - name: _replace_mocked_var
+    docs:
+      show: false

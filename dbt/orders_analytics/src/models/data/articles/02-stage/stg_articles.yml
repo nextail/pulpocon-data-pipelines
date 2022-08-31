@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: stg_articles
+    description: dato de artículos limpio y con conversión de tipos de datos aplicada
+    config: 
+      tags: ["layer:stage"]
+      materialized: view
+    

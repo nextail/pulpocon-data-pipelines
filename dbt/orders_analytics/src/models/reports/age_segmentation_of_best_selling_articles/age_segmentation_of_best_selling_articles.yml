@@ -1,0 +1,8 @@
+version: 2
+
+models:
+- name: age_segmentation_of_best_selling_articles
+  description: "INFORME: distribución de artículos más vendidos por segmento de edad"
+  config:
+    tags: ["layer:report", "visibility:public"]
+    materialized: table
