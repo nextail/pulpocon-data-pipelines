@@ -13,3 +13,5 @@ SELECT
     sales_channel_id::INTEGER AS sales_channel_id
 FROM
     raw_data
+WHERE 
+    customer_id <> 'unknown'

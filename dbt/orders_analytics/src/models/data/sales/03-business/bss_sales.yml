@@ -6,3 +6,60 @@ models:
     config: 
       tags: ["layer:business", "visibility:public"]
       materialized: table
+
+    columns:
+    - name: sales_date
+      tests:
+        - not_null
+        - dbt_expectations.expect_column_to_exist
+    
+    - name: sales_year
+      tests:
+        - not_null
+        - dbt_expectations.expect_column_to_exist
+
+    - name: sales_month
+      tests:
+        - not_null
+        - dbt_expectations.expect_column_to_exist
+
+    - name: price
+      tests:
+        - not_null
+        - dbt_expectations.expect_column_to_exist
+
+    - name: sales_channel_id
+      tests:
+        - not_null
+        - dbt_expectations.expect_column_to_exist
+        - relationships:
+            to: ref('bss_sales_channels')
+            field: sales_channel_id
+
+    - name: sales_channel_name
+      tests:
+        - dbt_expectations.expect_column_to_exist
+
+    - name: customer_reference
+      tests:
+        - not_null
+        - dbt_expectations.expect_column_to_exist
+        - relationships:
+            to: ref('bss_customers')
+            field: customer_reference
+
+    - name: article_reference
+      tests:
+        - not_null
+        - dbt_expectations.expect_column_to_exist
+        - relationships:
+            to: ref('bss_articles')
+            field: article_reference
+
+    - name: product_reference
+      tests:
+        - not_null
+        - dbt_expectations.expect_column_to_exist
+        - relationships:
+            to: ref('bss_products')
+            field: product_reference
