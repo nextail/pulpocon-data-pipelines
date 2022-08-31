@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: stg_sales
+    description: dato de ventas limpio y con conversión de tipos de datos aplicada
+    config: 
+      tags: ["layer:stage"]
+      materialized: view

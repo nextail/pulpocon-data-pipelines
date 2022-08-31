@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: bss_sales
+    description: datos finales de ventas
+    config: 
+      tags: ["layer:business", "visibility:public"]
+      materialized: table
