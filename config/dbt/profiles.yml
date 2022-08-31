@@ -1,0 +1,30 @@
+
+orders_analytics:
+  target: snowflake
+  outputs:
+    local: &common_local_config
+      type: postgres
+      host: pulpocon2022-data-pipelines-db
+      port: 5432
+      user: postgres
+      pass: postgres
+      dbname: postgres
+      schema: orders_analytics
+    snowflake: &common_snowflake_config
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+      schema: orders_analytics
+
+
+orders_analytics_test:
+  target: snowflake
+  outputs:
+    local:
+      <<: *common_local_config
+      schema: orders_analytics_test
+    snowflake:
+      <<: *common_snowflake_config
+      schema: orders_analytics_test

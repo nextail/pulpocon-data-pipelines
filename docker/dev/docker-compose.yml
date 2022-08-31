@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  test-db:
+    image: postgres
+    container_name: pulpocon2022-data-pipelines-db
+    volumes:
+      - pulpocon2022-data-pipelines-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    networks:
+      - pulpocon2022-data-pipelines-net
+
+volumes:
+  pulpocon2022-data-pipelines-db:
+networks:
+  pulpocon2022-data-pipelines-net:

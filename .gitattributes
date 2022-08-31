@@ -1,0 +1,5 @@
+
+# Linguist overrides to enable better statistics in github
+*.sql linguist-detectable
+dbt/**/*.yml linguist-detectable
+dbt/**/macros/**/*.sql linguist-language=jinja
