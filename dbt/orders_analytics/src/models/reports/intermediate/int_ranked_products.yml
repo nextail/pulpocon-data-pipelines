@@ -6,4 +6,4 @@ models:
   description: "CTE: ranking de productos según ventas mensuales"
   config: 
       tags: ["layer:report"]
-      materialized: ephemeral
+      materialized: table

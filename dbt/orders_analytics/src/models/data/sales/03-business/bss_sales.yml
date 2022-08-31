@@ -6,6 +6,8 @@ models:
     config: 
       tags: ["layer:business", "visibility:public"]
       materialized: table
+      cluster_by: sales_date  # <--- nueva propiedad a configurar
+      snowflake_warehouse: "{{ target.user }}_WH_L"  # <--- nueva propiedad a configurar
 
     columns:
     - name: sales_date
