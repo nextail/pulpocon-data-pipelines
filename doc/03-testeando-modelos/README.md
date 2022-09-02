@@ -13,7 +13,7 @@
 
 <!-- content -->
 
-Esta sección requiere las modificaciones hechas en los apartados anteriores. Puedes partir de la rama `03-testeadno-modelos` del repositorio en caso de que no hayas podido completar alguna de ellas, eso sí, ten en cuenta lo siguiente: es imprescindible que hayas ejecutado previamente en algún momento las prácticas: [Conectando Snowflake y dbt](../00-introduccion-snowflake-dbt/README.md#octopusconectando-snowflake-y-dbt) y [Poblando de datos la capa raw](../01-procesando-en-capas/README.md#poblando-de-datos-la-capa-raw); puedes hacerlo ahora si lo necesitas. Además, ya que esta sección añade tests a modelos ya construidos, deberás ejecutar un comando `dbt run` si todavía no lo has hecho.
+Esta sección requiere las modificaciones hechas en los apartados anteriores. Puedes partir de la rama `03-testeando-modelos` del repositorio en caso de que no hayas podido completar alguna de ellas, eso sí, ten en cuenta lo siguiente: es imprescindible que hayas ejecutado previamente en algún momento las prácticas: [Conectando Snowflake y dbt](../00-introduccion-snowflake-dbt/README.md#octopusconectando-snowflake-y-dbt) y [Poblando de datos la capa raw](../01-procesando-en-capas/README.md#poblando-de-datos-la-capa-raw); puedes hacerlo ahora si lo necesitas. Además, ya que esta sección añade tests a modelos ya construidos, deberás ejecutar un comando `dbt run` si todavía no lo has hecho.
 
 ## Añadiendo tests a los modelos
 
