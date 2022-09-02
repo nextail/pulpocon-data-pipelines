@@ -271,7 +271,7 @@ El resultado nos arroja luz sobre el valor de la columna `customer_reference` qu
 
 Observamos que todos los registros muestran el valor `unknown`, por lo tanto adaptaremos nuestros modelos para filtrar dicho valor incorrecto. Se pueden plantear varias soluciones, algunas más correctas que otras pensando en entornos productivos. De cara al taller y con fines didácticos vamos a optar por filtrar el dato de la forma más sencilla posible, añadiendo una condición en la etapa más temprana de nuestro procesado de ventas de forma que descartemos este dato sucio lo antes posible en nuestra *pipeline*.
 
-3. editaremos el fichero `stg_sales.sql` dentro del directorio: `orders_analytics/src/model/data/sales/03-stage`:
+3. editaremos el fichero `stg_sales.sql` dentro del directorio: `orders_analytics/src/model/data/sales/02-stage`:
 
 ~~~sql
 --INPUT: raw input data
