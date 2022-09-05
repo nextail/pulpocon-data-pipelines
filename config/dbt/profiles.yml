@@ -16,6 +16,8 @@ orders_analytics:
       user: "{{ env_var('SNOWFLAKE_USER') }}"
       password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
       database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+      role: "{{ env_var('SNOWFLAKE_USER') }}_RL"
+      warehouse: "{{ env_var('SNOWFLAKE_USER') }}_WH"
       schema: orders_analytics
 
 

@@ -94,7 +94,7 @@ A lo largo del taller utilizaremos tanto dbt como Snowflake para desarrollar y e
 
 1. **obtener nuestras credenciales de Snowflake**
 
-- Entraremos en el siguiente enlace: [credenciales Snowflake](https://docs.google.com/spreadsheets/d/1eMp4_f70uUobTvEfM2Guq4qalw8CP-sxfIc20pXsNRo/edit?usp=sharing) y anotaremos nuestro nombre en la columna *"Persona que utiliza la cuenta"* para reservar un juego de credenciales de cara a la realización del taller
+- Entraremos en el siguiente enlace: [credenciales Snowflake](https://docs.google.com/spreadsheets/d/1eMp4_f70uUobTvEfM2Guq4qalw8CP-sxfIc20pXsNRo/edit?usp=sharing) y anotaremos nuestro nombre en la columna *"Persona que utiliza la cuenta"* para reservar un juego de credenciales de cara a la realización del taller [^credenciales-tras-pulpocon22]
 
 2. **configurar credenciales como variables de entorno**
 
@@ -145,7 +145,26 @@ A lo largo del taller utilizaremos tanto dbt como Snowflake para desarrollar y e
 A partir de aquí esteremos listos para comenzar a ejecutar todos los casos prácticos que veremos a lo largo del taller. 
 En la columna `Snowflake Console URL` del enlace del que hemos obtenido las credenciales, se indica una URL de acceso a la consola de Snowflake; utilizaremos esta dirección en distintos momentos del taller siempre que necesitemos ejecutar consultas o comprobar resultados en Snowflake.
 
+---
 
+[^credenciales-tras-pulpocon22]: 
+**NOTA:** los usuarios utilizados durante la PulpoCon 2022 pueden haber caducado y no estar ya disponibles. Si esto fuese así, puedes realizar igualmente el taller utilizando uno de estos dos métodos:
+
+- generando una cuenta de prueba de 30 días en Snowflake: https://signup.snowflake.com/ de forma totalmente gratuita y solo requiriendo una dirección de correo electrónico para ello. Una vez generada la cuenta, debes actualizar los campos referentes a Snowflake en el fichero `config/dbt/profiles.yml` de este repositorio, utilizando los valores correctos para tu nueva cuenta Necesitarás lo siguiente, todo ello creado en Snowflake junto a tu nueva cuenta:
+  - el identificador de la cuenta creada: `account`
+  - un nombre de usuario: `user`
+  - una contraseña: `password`
+  - una base de datos existente en Snowflake: `database`
+  - un rol vinculado a tu usuario y con permisos de acceso a la base de datos anterior: `role`
+  - un *warehouse* existente en Snowflake y accesible a tu usuario: `warehouse`
+      
+  Una vez configurada esta información podrías continuar esta guía desde el `paso 3` con normalidad.
+
+- prescindiendo de Snowflake y utilizando en su lugar una base de datos PostgreSQL local que forma parte también del repositorio. En este caso no podrás realizar las prácticas específicas de Snowflake, como las que se detallan en la sección de *"Estrategias ante grandes volumetrías de datos"*, pero sí el resto de apartados. Estos serían los pasos a realizar si optas por esta opción:
+  1. editar el fichero `config/dbt/profiles.yml` para configurar el valor: `target: local` en las líneas 3 y 25, en lugar del existente Snowflake.
+  2. ejecutar el comando `make start-dev` desde la carpeta raíz de este repositorio para arrancar la instancia local de PostgreSQL
+  
+  Una vez hecha esta configuración podrías continuar esta guía desde el `paso 3` con normalidad. En el apartado *"Ejecución de macro load_raw_data"* de la sección *"Procesamiento en capas"* se te pedirá que ejecutes un comando dbt especial, en lugar de la macro que normalmente se pide ejecutar en ese punto.
 
 <!-- footer -->
 <p>&nbsp;</p>
