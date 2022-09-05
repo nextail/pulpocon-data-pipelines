@@ -243,7 +243,7 @@ En tiempo de ejecución, el dato se extrae desde la capa de persistencia y se di
 Físicamente, el dato en Snowflake se almacena en forma de *micro-particiones* que el sistema gestiona de forma automática. Una *micro-partición* es un bloque de información, entre 50Mb y 500Mb de dato descomprimido, unos 16MB de dato compactado en Snowflake, que se persiste de forma contigua y donde se almacenan una serie de filas completas. Estos datos se persisten en un formato columnar y, además, sobre ellos Snowflake calcula una serie de metainformación que será empleada para optimizar posteriores consultas: valores máximos y mínimos, rangos de datos, cantidad de valores distintos en cada columna, etc.
 
 ![snowflake_clustering](assets/snw-clustering.png)
-<p align="center"><em>Fig - Clustering en Snowflake</em></p>
+<p align="center"><em>Fig - Micro-particiones y clustering de datos en Snowflake</em></p>
 
 El concepto de *micro-particiones* en Snowflake presenta una serie de características importantes que nos servirán para entender cómo es el funcionamiento típico de sistemas *MPP* (*massively parallel processing*):
 
@@ -357,9 +357,9 @@ El tiempo de cómputo del modelo `bss_sales` se ha visto incrementado al no util
 <details>
 <summary> :octopus: <strong>Escalando verticalmente nuestro procesado</strong></summary>
 
-En el anterior punto cambiamos la forma de clusterizar los datos de nuestro modelo `bss_sales` y eso afectó a sus tiempos de cómputo, pasando de unos 25 segs a cerca de 46 segs. Este modelo es, sin duda, el que mayor carga computacional tiene asociada en nuestro caso de uso debido a la volumetría del dato en cuestión (~ 57M de tuplas). Gracias a que el modelo está aislado como un paso de nuestra *pipeline* y a que Snowflake utiliza el concepto de *virtual warehouses*, veremos cómo podemos escalar nuestro procesado de forma sencilla para tratar de reducir nuevamente los tiempos.
+En el anterior punto cambiamos la forma de clusterizar los datos de nuestro modelo `bss_sales`, eso supuso una mejora en las consultas realizadas sobre él pero afectó a sus tiempos de cómputo, pasando de unos 25 segs a cerca de 46 segs. Este modelo es, sin duda, el que mayor carga computacional tiene asociada en nuestro caso de uso debido a la volumetría del dato en cuestión (~ 57M de tuplas). Gracias a que el modelo está aislado como un paso de nuestra *pipeline* y a que Snowflake utiliza el concepto de *virtual warehouses*, veremos cómo podemos escalar nuestro procesado de forma sencilla para tratar de reducir nuevamente los tiempos.
 
-1. nuevamente centraremos los cambios sobre la metainformación del modelo `bss_sales`,  por lo que volveremos a editar el fichero `bss_sales.yml` de la carpeta `orders_analytics/src/model/data/sales/03-business`. Añadiremos una configuración especial que nos permita escalar verticalmente nuestro cómputo en Snowflake como parte del yml del modelo, y **mantendremos intacto el resto del contenido**:
+1. nuevamente centraremos los cambios sobre la metainformación del modelo `bss_sales`, por lo que volveremos a editar el fichero `bss_sales.yml` de la carpeta `orders_analytics/src/model/data/sales/03-business`. Añadiremos una configuración especial que nos permita escalar verticalmente nuestro cómputo en Snowflake como parte del yml del modelo y **mantendremos intacto el resto del contenido**:
 
 ~~~yml
 models:

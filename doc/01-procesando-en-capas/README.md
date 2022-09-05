@@ -71,6 +71,11 @@ dbt deps
 dbt run-operation load_raw_data
 ```
 
+    NOTA: si estuvieses utilizando la base de datos PostgreSQL local en lugar de Snowflake para realizar el taller, 
+    deberás ejecutar un comando: "dbt seed" en sustitución del previamente comentado "dbt run-operation". 
+    Este comando "dbt seed" cargará unos datos locales de prueba que tendrán una volumetría muy inferior 
+    a los originales, pero que te permitirán seguir con el taller sin necesidad de una cuenta en Snowflake.
+
 El primero de ellos, `dbt deps`, se encargará de recuperar todas las dependencias que nuestro proyecto dbt requiere para su funcionamiento, mientras que el comando `dbt run-operation` lanzará la carga de los datos *raw* de nuestro caso de uso:
 
 ~~~bash

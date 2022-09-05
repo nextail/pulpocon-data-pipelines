@@ -16,16 +16,16 @@ Esta sección requiere las modificaciones hechas en los apartados anteriores. Pu
 
 ## Documentando la pipeline de transformación
 
-Cuando tenemos una visión general completa de todos nuestros flujos de datos, fuentes, transformaciones y dependencias, podemos hablar de la precisión y la calidad de nuestros datos y tener confianza en la información y los informes de nuestros datos. 
+Cuando tenemos una visión general completa de todos nuestros flujos de datos, fuentes, transformaciones y dependencias, podemos hablar de la precisión y la calidad de nuestros datos y tener confianza en la información y los informes que generamos. 
 
-El *lineage* de datos nos ayuda a controlar la complejidad de los datos brindandonos una descripción completa de cómo se mueven nuestros datos dentro de nuestra *pipeline*, dónde se originaron, cómo se transforman en el camino y cómo están interconectados. Por ello, el *lineage* de datos puede ayudarnos a garantizar la calidad de nuestros datos, aumentar la confianza en nuestros datos y acelerar los análisis de causa raíz e impacto.
+El *lineage* nos ayuda a controlar la complejidad de los datos brindandonos una descripción completa de cómo se mueven dentro de nuestra *pipeline*, dónde se originaron, cómo se transforman en el camino y cómo están interconectados. Por ello, el *lineage* puede ayudarnos a garantizar la calidad de nuestros datos, aumentar la confianza en ellos y acelerar los análisis de causa raíz e impacto.
 
-Dbt utiliza toda la información de nuestro código para generar la documentación: fuentes de datos, modelos, dependencias, tests, código SQL “original” y “compilado”, e incluso gracias al conocimiento de estas interdependencias entre modelos, es capaz de construir el *lineage* de los datos. 
+Dbt utiliza toda la información de nuestro código para generar la documentación: fuentes de datos, modelos, dependencias, tests, código SQL “original” y “compilado”, e incluso gracias al conocimiento de estas interdependencias entre modelos, es capaz de construir también el *lineage* de los datos. 
 ### :octopus: Generando la documentación del proyecto
 
 Una vez tenemos nuestros modelos construidos y ejecutados con el comando `dbt run`, podemos generar la documentación y verla en nuestro navegador.
 
-1.  ejecutamos los siguientes comandos:
+1. ejecutamos los siguientes comandos:
 
 ~~~bash
 dbt docs generate
@@ -36,30 +36,30 @@ dbt docs serve > logs/doc.log 2>&1 &
            en segundo plano y nos permita seguir trabajando en 
            la shell normalmente
 
-Abrimos un navegador y copiamos la URL:  http://localhost:8080 y en seguida nos aparecerá, en el marco izquierdo de la ventana, una representación de nuestra estructura del proyecto, junto con las fuentes de datos `raw` y los paquetes de los que depende el proyecto:
+Abrimos un navegador y copiamos la URL: http://localhost:8080 y en seguida nos aparecerá, en el marco izquierdo de la ventana, una representación de nuestra estructura del proyecto, junto con las fuentes de datos `raw` y los paquetes de los que depende el proyecto:
 
 ![structure_doc](assets/structure_doc.png)
 <p><em>Fig - estructura de nuestro proyecto</em></p>
 
 
-2.  accedemos al *lineage* completo, situándonos en la carpeta de nuestro proyecto y haciendo sobre click sobre el botón azul que aparece en la esquina inferior derecha de la ventana:
+2. accedemos al *lineage* completo, situándonos en la carpeta de nuestro proyecto y haciendo sobre click sobre el botón azul que aparece en la esquina inferior derecha de la ventana:
 
 ![graph_lineage](assets/graph_lineage.png)
 <p><em>Fig - lineage de datos de nuestro proyecto</em></p>
 
-El *lineage* de datos se representa en forma de grafo acíclico dirigido (DAG). Cada nodo del grafo representa un modelo, y las aristas entre los nodos están definidos por las funciones de referencia, donde un modelo especificado en una función de referencia se reconoce como un predecesor de el modelo actual. 
+El *lineage* de datos se representa en forma de grafo acíclico dirigido (DAG). Cada nodo del grafo representa un modelo y las aristas entre los nodos están definidos por las funciones de referencia, donde un modelo especificado en una función de referencia se reconoce como un predecesor de el modelo actual. 
 
-Cuando se ejecuta dbt, los modelos se ejecutan en el orden especificado en el *lineage*; no es necesario definir explícitamente el orden de ejecución de sus modelos. Nos va a permitir tener una trazabilidad de las trasformaciones que se aplican a nuestros datos en todo el pipeline de ejecución, ofreciéndonos una representación más visual del procesamiento en capas que veíamos en la sección anterior.
+Cuando se ejecuta dbt, los modelos se construyen en el orden especificado en el *lineage*; no es necesario definir explícitamente el orden de ejecución, toda la información requerida está ya en la propia definición de los modelos (mediante el uso de las macros `ref` y `source`). Este *lineage* nos va a permitir tener una trazabilidad de las trasformaciones que se aplican a nuestros datos en todo el pipeline de ejecución, ofreciéndonos una representación más visual del procesamiento en capas que veíamos en la sección anterior.
 
 
-3.  accedemos a la documentación de cualquier modelo, navegando por la estructura del proyecto. Una buena documentación de nuestros modelos ayudará a los consumidores intermedios a descubrir y comprender los conjuntos de datos que selecciona para ellos. 
+3. accedemos a la documentación de cualquier modelo, navegando por la estructura del proyecto. Una buena documentación de nuestros modelos ayudará a los consumidores intermedios a descubrir y comprender los conjuntos de datos que selecciona para ellos. 
 
 Por ejemplo navegando al modelo `stg_customers`, podemos acceder a la descripción del mismo, al detalle de sus columnas, de qué modelos se nutre y por qué otros modelos es referenciado, y finalmente el código fuente y compilado de nuestro modelo. 
 
 ![navigating_model](assets/navigating_model.png)
 <p><em>Fig - documentación del modelo stg_customers</em></p>
 
-Haciendo click sobre el botón azul que aparece en la esquina inferior derecha de la ventana, también podemos acceder a un "mini-mapa" del DAG de ese modelo.
+Haciendo click sobre el botón azul que aparece en la esquina inferior derecha de la ventana, también podemos acceder a un "mini-mapa" del DAG de ese modelo, en el que tendremos una visión rápida de sus predecesores y sucesores de primer nivel.
 
 ![mini_map_customers](assets/mini_map_customers.png)
 <p><em>Fig - lineage del modelo stg_articles</em></p>
