@@ -17,7 +17,13 @@
 
 {% macro default__load_raw_data() %}
 
-  {{ exceptions.raise_compiler_error("Esta macro solo se puede ejecutar con '--target snowflake'") }}
+  {% set error_msg %}
+  Esta macro solo puede ser ejecutada cuando el target seleccionado es Snowflake.
+  Si estás utilizando la instancia local de PostgreSQL, debes ejecutar en su lugar el comando: "dbt seed" 
+  para cargar el dato de pruebas en local y poder continuar así con el taller.
+  {% endset %}
+
+  {{ exceptions.raise_compiler_error(error_msg) }}
   
 {% endmacro %}
 
