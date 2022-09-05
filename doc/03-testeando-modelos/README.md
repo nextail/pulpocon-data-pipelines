@@ -13,7 +13,7 @@
 
 <!-- content -->
 
-Esta sección requiere las modificaciones hechas en los apartados anteriores. Puedes partir de la rama `03-testeadno-modelos` del repositorio en caso de que no hayas podido completar alguna de ellas, eso sí, ten en cuenta lo siguiente: es imprescindible que hayas ejecutado previamente en algún momento las prácticas: [Conectando Snowflake y dbt](../00-introduccion-snowflake-dbt/README.md#octopusconectando-snowflake-y-dbt) y [Poblando de datos la capa raw](../01-procesando-en-capas/README.md#poblando-de-datos-la-capa-raw); puedes hacerlo ahora si lo necesitas. Además, ya que esta sección añade tests a modelos ya construidos, deberás ejecutar un comando `dbt run` si todavía no lo has hecho.
+Esta sección requiere las modificaciones hechas en los apartados anteriores. Puedes partir de la rama `03-testeando-modelos` del repositorio en caso de que no hayas podido completar alguna de ellas, eso sí, ten en cuenta lo siguiente: es imprescindible que hayas ejecutado previamente en algún momento las prácticas: [Conectando Snowflake y dbt](../00-introduccion-snowflake-dbt/README.md#octopusconectando-snowflake-y-dbt) y [Poblando de datos la capa raw](../01-procesando-en-capas/README.md#poblando-de-datos-la-capa-raw); puedes hacerlo ahora si lo necesitas. Además, ya que esta sección añade tests a modelos ya construidos, deberás ejecutar un comando `dbt run` si todavía no lo has hecho.
 
 ## Añadiendo tests a los modelos
 
@@ -21,10 +21,10 @@ Las organizaciones orientadas a datos (*data-driven*) necesitan protegerse de lo
 
 Construir una *pipeline* de datos a escala implica, sin lugar a dudas, aplicar una serie de buenas prácticas en lo que a la realización de tests de datos se refiere. Uno de los problemas más comunes es hacer suposiciones sobre la naturaleza de los datos devueltos por un modelo sin validar que dichas suposiciones se correspondan con el comportamiento real del modelo. En un escenario complejo, sería muy común tener, por ejemplo, un informe de ventas que es consumido por varios equipos diferentes y necesitamos garantizar que cada uno de esos consumidores obtiene el dato con la forma y contenido esperado, de modo que puedan tomar las decisiones de negocio adecuadas basadas en dato fiable. 
 
-Nuestro proyecto dbt, alberga este tipo de informes en el directorio `dbt/orders_analytics/src/reports`. En él hemos construido un modelo
+Nuestro proyecto dbt alberga este tipo de informes en el directorio `dbt/orders_analytics/src/reports`. En él, por ejemplo, hemos construido un modelo
 `articles_with_low_sales_pct_over_product_sales` que analiza las ventas de distintos productos para determinar cuáles de sus tallas o colores tienen menos éxito en el mercado.
 
-Este informe se nutre de los modelos de nuestra capa *business* (`bss_sales`, `bss_products` y `bss_articles`) que, como hemos comentado en la sección anterior, exponen dato listo para ser consumido por terceros. Por lo tanto, debemos garantizar que la información que exponen estos modelos es confiable y estable en el tiempo.
+Este informe se nutre de los modelos de nuestra capa *business* (`bss_sales`, `bss_products` y `bss_articles`) que, como hemos comentado en secciones anteriores, exponen dato listo para ser consumido por terceros. Por lo tanto, debemos garantizar que la información que exponen estos modelos es confiable y estable en el tiempo.
 
 !["products-low-sales"](assets/products-low-sales-volume.png)
 <p align="center"><em>Fig - ejemplo de resultados del informe articles_with_low_sales_pct_over_product_sales</em></p>
@@ -34,13 +34,13 @@ Dbt nos ofrece diversas funcionalidades de *testing*, así que nos volveremos a 
 
 ## Testeando datos de un modelo
 
-Empezar con los tests más básicos significa comenzar con tests genéricos, que son tests modulares y reutilizables para garantizar la confiabilidad e integridad de los datos de un modelo. Dbt te ofrece algunos tests genéricos (también conocidas como *schema tests*) que vienen predefinidos y se pueden implementar con una configuración mínima. 
+Empezar con los tests más básicos significa comenzar con tests genéricos, que son tests modulares y reutilizables para garantizar la confiabilidad e integridad de los datos de un modelo. Dbt nos ofrece algunos tests genéricos (también conocidas como *schema tests*) que vienen predefinidos y se pueden implementar con una configuración mínima. 
 
-No es necesario implementar nada, tan sólo tienes que añadirlos de forma declarativa, es decir, no es necesario que yo escriba el test sino que lo añado como metainformación en el modelo existente (u otro recurso como source). Estas propiedades se incluyen en los archivos `.yml` en el mismo directorio que su recurso.
+No es necesario implementar nada, tan solo tendremos que añadirlos de forma declarativa, es decir, no es necesario que yo escriba el test sino que lo añado como metainformación en el modelo existente (u otro recurso como, por ejemplo, un `source`). Estas propiedades se incluyen en los archivos `.yml` en el mismo directorio que su recurso.
 
 Vemos algunos ejemplos:
 
-1. **not_null**: un valor nulo en los datos indica que falta un valor en una columna o se desconoce. A veces, los valores nulos son intencionales y deseados. Otras veces, son una indicación de un problema de datos. Este tipo de test identifica dónde existen valores nulos. Por ejemplo, verificamos que todos nuestros artículos no contienen valores nulos.
+1. **not_null**: un valor nulo en los datos indica que falta un valor en una columna o se desconoce. A veces los valores nulos son intencionales y deseados; otras veces son una indicación de un problema de datos. Este tipo de test identifica dónde existen valores nulos. Por ejemplo, verificamos que todos nuestros artículos contienen una referencia no nula utilizando la siguiente configuración.
 
 ![not_null_generic_test](assets/not_null_generic_test.png)
 <p><em>Fig - test genérico not_null sobre columna article_reference en modelo bss_articles</p></em>
@@ -52,12 +52,14 @@ Por ejemplo, si nuestros modelos `bss_articles` o `bss_products` fueran suscepti
 ![unique_generic_test](assets/unique_generic_test.png)
 <p><em>Fig - test genérico unique sobre columna article_reference en modelo bss_articles</p></em>
 
-3. **accepted_values**: este tipo de test verifica que todos los valores de columna en todas las filas estén en el conjunto de valores válidos. Por ejemplo, nuestra columna *sales_channel_id* en nuestro modelo `bss_sales_channels` solo puede tener dos valores válidos (1, 2). Si este test descubre algún valor en la columna *sales_channel_id* que no sea uno de estos dos fallará.
+3. **accepted_values**: este tipo de test verifica que todos los valores para una columna en todas las filas estén en el conjunto de valores válidos. Por ejemplo, nuestra columna *sales_channel_id* en nuestro modelo `bss_sales_channels` solo puede tener dos valores posibles (1, 2). Si este test descubre algún valor en la columna *sales_channel_id* que no sea uno de estos dos fallará.
 
 ![accepted_values_generic_test](assets/accepted_values_generic_test.png)
 <p><em>Fig - test genérico accepted_values sobre columna sales_channels_id en modelo bss_sales_channels</p></em>
 
 4. **relationships**: este tipo de test verifica la integridad referencial, asegurando que todos los registros en una tabla secundaria tengan un registro correspondiente en la tabla principal. Por ejemplo, verificamos que todos los valores de *product_reference* en nuestro modelo `bss_articles` existen en el modelo `bss_products`.
+
+Este tipo de tests cobran especial importancia cuando trabajamos contra sistemas, tal y como ocurre en el caso de Snowflake, donde la base de datos no es capaz de realizar este tipo de validaciones. Esto nos obliga a trasladar esta lógica a nuestra capa de aplicación y, en el caso de dbt, tests de este estilo simplifican al máximo el realizar las validaciones de integridad requeridas.
 
 ![relationships_generic_test](assets/generic_tests_bss_articles.png)
 <p><em>Fig - test genérico relationships sobre columna product_reference en modelo bss_articles</p></em>
@@ -67,7 +69,7 @@ A lo largo de los siguientes pasos iremos testeando nuestro modelo de ventas, po
 <details>
 <summary> :octopus: <strong>Añadiendo tests genéricos en el modelo de ventas</strong></summary>
 
-Nuestro informe de ventas de artículos con un bajo rendimiento (`articles_with_low_sales_pct_over_product_sales`) del que hablamos al inicio de la sección, sin duda se vería afectado por valores *NULL* en la columna *product_reference*. Esto podría provocar que ciertos artículos no se tuviesen en cuenta en el análisis.
+Nuestro informe de ventas de artículos con un bajo rendimiento (`articles_with_low_sales_pct_over_product_sales`), del que hablamos al inicio de la sección, sin duda se vería afectado por valores *NULL* en la columna *product_reference*. Esto podría provocar que ciertos artículos no se tuviesen en cuenta en el análisis.
 
 También sería un error de datos común que se registraran nuevas ventas en el modelo `bss_sales` con una referencia *article_reference* incorrecta, que no existiese en el catálogo de productos. Como resultado, el informe reportaría ventas inferiores a las reales. Esto pone de manifiesto lo importante que es realizar las comprobaciones de integridad referencial entre las distintas fuentes de datos.
 
@@ -129,6 +131,8 @@ models:
    - customer_reference --> bss_customers
    - article_reference --> bss_articles
    - product_reference --> bss_products
+
+En la configuración de este tipo de tests, tal y como hemos visto, necesitaremos indicar tanto la columna a validar, como el modelo de referencia sobre el que realizar el chequeo de integridad.
    
 ~~~yml
 version: 2
@@ -271,7 +275,7 @@ El resultado nos arroja luz sobre el valor de la columna `customer_reference` qu
 
 Observamos que todos los registros muestran el valor `unknown`, por lo tanto adaptaremos nuestros modelos para filtrar dicho valor incorrecto. Se pueden plantear varias soluciones, algunas más correctas que otras pensando en entornos productivos. De cara al taller y con fines didácticos vamos a optar por filtrar el dato de la forma más sencilla posible, añadiendo una condición en la etapa más temprana de nuestro procesado de ventas de forma que descartemos este dato sucio lo antes posible en nuestra *pipeline*.
 
-3. editaremos el fichero `stg_sales.sql` dentro del directorio: `orders_analytics/src/model/data/sales/03-stage`:
+3. editaremos el fichero `stg_sales.sql` dentro del directorio: `orders_analytics/src/model/data/sales/02-stage`:
 
 ~~~sql
 --INPUT: raw input data
@@ -386,7 +390,7 @@ Ahora todos nuestros tests pasan las validaciones y podemos concluir que el comp
 
 ## Testeando nuestros modelos como *contratos de datos*
 
-Los modelos de nuestra capa business están etiquetados con el tag `visibility:public`. Esta especificación de visibilidad es la manera de exponer nuestros modelos para ser usados de forma similar a un API, estableciendo una especie de contrato con los potenciales consumidores del modelo en el que es importante garantizar que la estructura del dato ofrecido se mantenga estable y correcta a lo largo del tiempo. 
+Los modelos de nuestra capa business están etiquetados con el tag `visibility:public`. Esta especificación de visibilidad es la manera que hemos determinado para exponer nuestros modelos para ser usados de forma similar a un API, estableciendo una especie de contrato con los potenciales consumidores del modelo en el que es importante garantizar que la estructura del dato ofrecido se mantenga estable y correcta a lo largo del tiempo. 
 
 Dentro de dbt podemos utilizar el paquete `dbt-expectations`, que es una implementación de tests al estilo de  la librería [Great Expectations](https://greatexpectations.io/), directamente ejecutables sobre un repositorio de datos. El paquete incluye más de 50 tests que se usan comúnmente relacionados con:
 - cambios en la estructura de los modelos: por ejemplo `expect_column_to_exist` o `expect_table_column_count_to_equal`
@@ -515,7 +519,7 @@ Los tests de estructura pasan correctamete, tal y como esperábamos, y validará
 
 ##  Testeando lógica de negocio compleja
 
-Hasta ahora hemos testeado los datos y estructura de modelos individuales, pero es importante también tener la capacidad de testear lógicas de negocio más complejas, o casuísticas muy específicas de nuestros datos. Por ejemplo, dentro de nuestro proyecto los productos han ido sufriendo cambios en sus nombres y descripciones durante el historial de ventas: 
+Hasta ahora hemos testeado los datos y estructura de modelos individuales, pero es importante también tener la capacidad de testear lógicas de negocio más complejas o casuísticas muy específicas de nuestros datos. Por ejemplo, dentro de nuestro proyecto los productos han ido sufriendo cambios en sus nombres y descripciones durante el historial de ventas: 
 
 |PRODUCT_CODE|ARTICLE_ID|PROD_NAME                |
 |------------|----------|-------------------------|
@@ -581,7 +585,7 @@ Tanto los tests de validación de datos, de estructura o de lógicas de negocio 
 
 - detectar problemas o desviaciones lo antes posible, realizando una auditoria continua sobre los datos ingestados
 - medir proactivamente cómo de correcto es el dato que estamos generando y cómo de saludable es la pipeline de transformación que estamos ejecutando
-- en definitiva, mejorar la observabilidad de nuestro proceso de transformación de información
+- en definitiva, mejorar la observabilidad de nuestro proceso de transformación de información y nuestra capacidad para atacar posibles errores de forma proactiva
 
 
 <!-- footer -->

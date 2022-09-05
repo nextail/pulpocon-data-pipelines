@@ -26,7 +26,7 @@ Un *framework* como dbt, aunque estamos usando *sql* como base, nos permite trab
 Es decir, no tenemos porque testear el proceso *end-to-end* de una *pipeline* completa, sino que podemos testearla unitariamente.
 ### ¿Cómo implemento un test unitario en transformaciones sql?
 
-En ingeniería de *software*, un test unitario se refiere a probar una sola pieza de lógica, ya sea encapsulada en una función o método, y cada test unitario sigue el patrón **AAA (*Arrange-Act-Assert*)**, que se ha convertido casi en un estándar en toda la industria. Este patrón sugiere que cada test debe dividirse en tres fases: preparar/inicializar, actuar y confirmar (asertar). Cada una de ellas sólo es responsable de la tarea que implica su nombre.
+En ingeniería de *software*, un test unitario se refiere a probar una sola pieza de lógica, ya sea encapsulada en una función o método, y cada test unitario sigue el patrón **AAA (*Arrange-Act-Assert*)**, que se ha convertido casi en un estándar en toda la industria. Este patrón sugiere que cada test debe dividirse en tres fases: preparar/inicializar, actuar y confirmar (asertar). Cada una de ellas solo es responsable de la tarea que implica su nombre.
 
 En el contexto de los tests unitarios de sql, definimos una unidad como un modelo único, con lo que tendríamos un archivo `.sql` que seguiría el patrón *Arrange-Act-Assert*:
 
