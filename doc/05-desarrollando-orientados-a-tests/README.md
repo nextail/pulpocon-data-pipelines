@@ -181,7 +181,7 @@ Las 3 funciones ordenan por el criterio establecido por `colums2` dentro del gru
 
 - **ROW_NUMBER**: genera una clasificación siempre incremental, donde a cada elemento se le asigna un número en función de su orden. Nunca genera rankings con duplicados.
 - **RANK**: genera una clasificación ordenada en la que puede haber duplicados. Cuando dos elementos comparten el mismo ranking, se genera un salto en la secuencia y al siguiente elemento se le asigna un valor no consecutivo. Si, por ejemplo, dos elementos comparten la primera posición del ranking al siguiente se le asigna la posición 3, quedando libre la segunda.
-- **DENSE_RANK**: genera una claisificación ordenada en la que puede haber duplicados, tal y como ocurre con la función RANK, pero en este caso no no se generan huecos y la clasificación siempre se comporta de forma secuencial. Aún si dos elementos comparten la primera posición, al siguiente en la secuencia le será asignado el número 2.
+- **DENSE_RANK**: genera una clasificación ordenada en la que puede haber duplicados, tal y como ocurre con la función RANK, pero en este caso no no se generan huecos y la clasificación siempre se comporta de forma secuencial. Aún si dos elementos comparten la primera posición, al siguiente en la secuencia le será asignado el número 2.
  
 En nuestro modelo, al usar la función de ventanado RANK() se están produciendo saltos en la clasificación debido al empate en ventas mensuales de los articulos `156231` y `153115` en el año `2020`, mes `1` y canal `store`. Debemos cambiar la definición del modelo para adecuarlo al comportamiento esperado.
 
