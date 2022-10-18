@@ -407,7 +407,7 @@ Algunas de las ideas que debemos tener presentes cuando trabajamos sobre grandes
 - dividir nuestro procesamiento en bloques independientes, o capas con distintos niveles de complejidad, nos permite sacar partido a las caracterísiticas de escalabilidad de los sistemas modernos sin incurrir en costes inasumibles. Además, facilita las ejecuciones multi-hilo y el salto de rendimiento resultante.
 - el comportamiento de sistemas orientados a la gestión de transacciones y múltiples inserciones/actualizaciones de datos es muy diferente al de los sistemas OLAP enfocados a la analítica de datos. Es importante conocer sus diferencias para adaptar nuestra cargas a sus características particulares.
 - aunque los servicios gestionados nos abstraen de muchas complejidades, es necesario entender sus arquitecturas y formas de funcionamiento para optimizar cómo persistimos la información y cómo la explotamos de forma eficiente.
-- el rendimiento en sistemas columnares es muy sensible a la cantidad de columnas y particiones de dato a procesar. Debemos adelantar el filtrado de información lo máximo posible para redducir la cantidad de dato a ser leído desde la capa física.
+- el rendimiento en sistemas columnares es muy sensible a la cantidad de columnas y particiones de dato a procesar. Debemos adelantar el filtrado de información lo máximo posible para reducir la cantidad de dato a ser leído desde la capa física.
 
 
 <!-- footer -->
